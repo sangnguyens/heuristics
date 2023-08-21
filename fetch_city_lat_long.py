@@ -5,7 +5,8 @@ This is a command-line tool that figures out the shortest distance to visit all 
 """
 
 import pandas as pd
-from random import shuffle
+import geopy
+import geopy.distance
 import random
 import click
 
@@ -16,7 +17,6 @@ def my_cities(*args):
 
 def create_cities_dataframe(cities=None):
     """Create a pandas dataframe of cities and their latitudes and longitudes"""
-    import geopy.geocoders
 
     if cities is None:
         cities = [
@@ -46,9 +46,7 @@ def create_cities_dataframe(cities=None):
 
     data = [(city, geolocator.geocode(city).latitude, geolocator.geocode(city).longitude) for city in cities]
 
-    df = pd.DataFrame(data, columns=["city", "latitudes", "longitude"])
-
-    return df
+    return pd.DataFrame(data, columns=["city", "latitudes", "longitude"])
 
 def tsp(cities_df):
     """Traveling Salesman Problem using pandas and Geopy"""
@@ -63,11 +61,11 @@ def tsp(cities_df):
     # create a list of distances
     distances_list = []
 
-    # loop through the list of cities
-    for i in range(len(city_list)):
+    # loop through the list of cities using zip and modulo operator
+    for city, next_city in zip(city_list, city_list[1:] + [city_list[0]]):
         # get the current city and next city
-        current_city = cities_df[cities_df['city'] == city_list[i]]
-        next_city = cities_df[cities_df['city'] == city_list[(i + 1) % len(city_list)]]
+        current_city = cities_df[cities_df['city'] == city]
+        next_city = cities_df[cities_df['city'] == next_city]
 
         # get the distance between the current city and the next city
         distance = geopy.distance.distance(

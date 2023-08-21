@@ -40,6 +40,20 @@ def create_cities_dataframe(cities=None):
             "Fort Worth",
             "Pheonix",
             "San Diego",
+            "Philadelphia",
+            "Washington",
+            "Portland",
+            "Salt Lake City",
+            "Oklahoma City",
+            "Minneapolis",
+            "Las Vegas",
+            "Detroit",
+            "Kansas City",
+            "Nashville",
+            "Memphis",
+            "Columbus",
+            "El Paso",
+            "Charlotte",
         ]
 
     geolocator = geopy.geocoders.Nominatim(user_agent='tsp_pandas')

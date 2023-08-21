@@ -1,0 +1,6 @@
+geopy
+pandas
+click
+pytest
+pylint
+black

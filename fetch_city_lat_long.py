@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 """
 This is a command-line tool that figures out the shortest distance to visit all cities in a list.
